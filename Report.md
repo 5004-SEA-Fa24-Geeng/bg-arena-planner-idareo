@@ -6,9 +6,54 @@ code as it is meant to help you understand some of the concepts.
 ## Technical Questions
 
 1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.
+
+'==' can only be used to compare primitive data types of memory addresses. '.equals' is a method in java that is assigned to every object. 
+This can be overridden for a more specific comparison between two objects.
    ```java
    // your code here
-   
+   // code for '=='
+    public class primitiveData{
+    private String name;
+    public primitiveData(String name){
+        this.name = name;
+    }
+    
+    public class primitive extends primitiveData{
+        private int studentID;
+        public primitive(String studentName, int studentID){
+           super(name);
+           this.studentID = studentID;
+        }
+        public String getName(){return this.name;}
+        
+        public int getStudentID(){
+            return this.studentID;
+       }
+        
+        public boolean equals(Object o){
+            if(this == o){
+                return true;
+            }
+            if(o == null || getClass() != o.getClass()){
+                return false;
+            }
+            
+            primitiveData prim = (primitiveData) o;
+            return this.getName().equals(prim.getName()) && this.getStudentID.equals(prim.getStudentID);
+        }
+        
+        public static void main(string[] args){
+            primitiveData p1 = new primitive("George",2);
+            primitveData p2 = new primitive("Alessandro",6);
+            primitveData p3 = new primitive("Alessandro",4);
+
+            primitiveData p4 = new primitive("George",2);
+           System.out.println(p2 == p3); //primitive
+           System.out.println(p1.equals(p4)); //.equals
+        }
+    }
+}
+
    ```
 
 
@@ -17,7 +62,42 @@ code as it is meant to help you understand some of the concepts.
 2. Logical sorting can be difficult when talking about case. For example, should "apple" come before "Banana" or after? How would you sort a list of strings in a case-insensitive manner? 
 
 
+[//
+```java
 
+//(public static List<String> caseSensitive&#40;List<String> words&#41;{)
+//(   Collections.sort&#40;words&#41;)
+
+class Fruits{
+    private String name;
+    public Fruits(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+       return this.name;
+    }
+    
+}
+
+class sortCaseSensitive implements Comparator<Fruits> {
+    @Override
+    public String compare(Fruits a, Fruits b) {
+        return a.getName().compareToIgnoreCase(b.getName());
+    }
+
+    class Main() {
+        public static void main(String[] args) {
+            List<Fruits> cs = new ArrayList<>();
+            cs.add(new Fruits("banana"));
+            cs.add(new Fruits("apple"));
+
+            Collections.sort(cs, new sortCaseSensitive());
+        }
+    }
+}
+
+```
 
 
 3. In our version of the solution, we had the following code (snippet)
@@ -35,23 +115,27 @@ code as it is meant to help you understand some of the concepts.
     ```
     Why would the order in which we checked matter (if it does matter)? Provide examples either way proving your point. 
 
+The order does matter because the operations are done on the results and could be mismatched into the wrong category, causing it to return 
+the wrong operation, therefore filter ineffectively.
 
 
 4. What is the difference between a List and a Set in Java? When would you use one over the other? 
-
+ A list will allow duplicates and adheres to the sequence. A set does not allow duplicates and may not adhere to sequence(implemented by Hashset class. 
+A list would be better for storing ordered collections while a set will be better when unique elements are required.
 
 
 
 5. In [GamesLoader.java](src/main/java/student/GamesLoader.java), we use a Map to help figure out the columns. What is a map? Why would we use a Map here? 
-
-
+A map is similar to the dictionary in pythons, typically used to store key-value pairs where the keys are required to be unique, while values can be duplicate.
+A map is used when finding elements via the keys matters as this is sorting by mapping to column names. This will be the key, 
+therefore new boardGame objects can be added as the values for the column names(keys).
 
 
 6. [GameData.java](src/main/java/student/GameData.java) is actually an `enum` with special properties we added to help with column name mappings. What is an `enum` in Java? Why would we use it for this application?
 
-
-
-
+An enum is a class type that is used to store a group of named constants. These can have methods that allow you to perform operations on the constants/assign them to specific variables/operators.
+In this instance, the enum class is used to handle mapping through the columns-Enums for filtering. The Enums are also used to create a group of presumably the most common column names that might
+be operated on. This is why there are two methods, one to handle the just the enums and the other to handle either enums or their associated column name.
 
 
 
@@ -70,6 +154,11 @@ code as it is meant to help you understand some of the concepts.
 
     ```java
     // your code here, don't forget the class name that is dropped in the switch block..
+   if(ct == CMD_QUESTION || ct == HELP){
+   processHelp();
+   }else{
+   CONSOLE.printf("%s%n", ConsoleText.INVALID);
+   }
     
     ```
 

@@ -317,7 +317,7 @@ public class ConsoleApp {
      * This enum uses a properties file (stored in resources), so that
      * we can easily change the text without changing the code. While not
      * fully setup, this is also a way to add localization to the application by
-     * having different properties files for different languages.
+         * having different `q` files for different languages.
      * 
      * It is worth noting this is *one* way to do this. It is also
      * very common to have a class with a number of final static strings

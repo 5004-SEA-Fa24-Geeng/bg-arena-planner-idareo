@@ -12,6 +12,141 @@ Place your class diagrams below. Make sure you check the file in the browser on 
 
 Provide a class diagram for the provided code as you read through it.  For the classes you are adding, you will create them as a separate diagram, so for now, you can just point towards the interfaces for the provided code diagram.
 
+[//]: # ( [MermaidChart: 871fddb0-ed18-452b-9e6b-9467173a8399]
+
+---
+title: bg_arena_planner - Initial design
+---
+classDiagram
+direction BT
+class BGArenaPlanner {
+- DEFAULT_COLLECTION: static final string
+- BGArenaPlanner()
++ main(String[] args) : static void
+}
+class ConsoleApp {
+- IN: static final Scanner
+- DEFAULT_FILENAME: static final String
+- RND: static final Random
+- current: Scanner
+- gameList: final IGameList
+- planner: final IPlanner
++ ConsoleApp(IGameList gameList, IPlanner planner)
++ start() : void
+- randomNumber() : void
+- processHelp() : void
+- processFilter() : void
+- printFilterStream(Stream~BoardGame~ games, GameData sortON) : void
+- processListCommands() : void
+- printCurrentList() : void
+- nextCommand() : ConsoleText
+- remainder() : String
+- getInput(String format, Object... args) : static String
+- printOutput(String format, Object... output) : static void
+- ConsoleText(Enum)
+}
+class Planner {
+games: Set~BoardGame~
++ Planner(games: Set)
++ filter(filter: String) : Stream~BoardGame~
++ filter(String filter, GameData sortOn) : Stream~BoardGame~
++ filter(String filter, GameData sortOn, boolean ascending) : Stream~BoardGame~
++ reset() : void
+}
+class GameList {
+- gameNames: Set~String~
++ GameList()
++ getGameNames() : List~String~
++ clear() : void
++ count() : int
++ saveGame(filename: String) : void
++ addToList(String str, Stream filtered) : void
++ removeFromList(String str) : void
+}
+class IGameList {
+getGameNames() : List~String~
+clear() : void
+count() : int
+saveGame(filename: String) : void
+addToList(String str, Stream filtered) : void
+removeFromList(String str) : void
+}
+class IPlanner {
+filter(filter: String) : Stream~BoardGame~
+filter(String filter, GameData sortOn) : Stream~BoardGame~
+filter(String filter, GameData sortOn, boolean ascending) : Stream~BoardGame~
+reset() : void
+}
+class Operations {
+- operator: final String
+Operations(operator: String)
++ getOperator() : String
++ fromOperator(operator: String) : static Operations
++ getOperatorFromStr(str: String) : static Operations
+}
+class GameData {
+- columnName: final String
+GameData(columnName: String)
++ getColumnName() : String
++ fromColumnName(columnName: String) : static GameData
++ fromString(name: String) : static GameData
+}
+class Filter {
+- Filters()
++ filter(BoardGame game, GameData column, Operations op, String value) : static Boolean
++ filterString(String gameData, Operations op, String value) : static boolean
+}
+class BoardGame {
+- name: final String
+- id: final int
+- minPlayers: int
+- maxPlayers: int
+- maxPlayTime: int
+- minPlayTime: int
+- difficulty: double
+- rank: int
+- averageRating: double
+- yearPublished: int
++ BoardGame(String name, int id, int minPlayers, int maxPlayers, int minPlayTime,int maxPlayTime, double difficulty, int rank, double averageRating, int yearPublished)
++ getName() : String
++ getId() : int
++ getMinPlayers() : int
++ getMaxPlayers() : int
++ getMaxPlayTime() : int
++ getMinPlayTime() : int
++ getDifficulty() : double
++ getRank() : int
++ getRating() : double
++ getYearPublished() : int
++ toStringWithInfo(GameData col) : String
++ toString() : String
++ equals(Object obj) : boolean
++ hashCode() : int
+main(String[] args) : void
+}
+class GameLoader {
+- DELIMITER: String
++ GamesLoader()
++ loadGamesFile(String filename) : Set~BoardGame~
+- toBoardGame(String line, Map columnMap) : BoardGame
+- processHeader(String header) : Map~GameData, Integer~
+}
+
+	<<Interface>> IGameList
+	<<Interface>> IPlanner
+	<<Enum>> Operations
+	<<Enum>> GameData
+
+    GameList ..|> IGameList
+    Planner ..|> IPlanner
+    BoardGame --* GameLoader
+    Filter --> Operations
+    Planner --> Filter
+    BGArenaPlanner --> ConsoleApp
+    ConsoleApp --> Planner
+    ConsoleApp --> GameList
+    Planner --> GameLoader
+    GameLoader .. GameData
 
 
 ### Your Plans/Design
