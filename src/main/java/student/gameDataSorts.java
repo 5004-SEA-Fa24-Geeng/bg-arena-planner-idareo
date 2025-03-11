@@ -10,15 +10,10 @@ public class gameDataSorts {
     public static class nameSort implements Comparator<BoardGame> {
         @Override
         public int compare(BoardGame o1, BoardGame o2){
-            return o1.getName().compareTo(o2.getName());
+            return o1.getName().compareToIgnoreCase(o2.getName());
         }
     }
 
-    public static class idSort implements Comparator<BoardGame> {
-        @Override
-        public int compare(BoardGame o1, BoardGame o2){
-            return Integer.compare(o1.getId(), o2.getId());}
-    }
 
     public static class ratingSort implements Comparator<BoardGame> {
         @Override
