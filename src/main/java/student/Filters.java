@@ -1,5 +1,8 @@
 package student;
 
+import static student.Operations.CONTAINS;
+import static student.Operations.EQUALS;
+
 public class Filters {
     private Filters() {}
 
@@ -8,11 +11,27 @@ public class Filters {
             case NAME:
                 //filter the name(string)
                 return filterString(game.getName(), op, value);
+            case ID:
+                return filterNum(game.getId(), op, value);
+            case RATING:
+                return filterNum(game.getRating(), op, value);
+            case DIFFICULTY:
+                return filterNum(game.getDifficulty(), op, value);
+            case RANK:
+                return filterNum(game.getRank(), op, value);
             case MAX_PLAYERS:
                 //filter based on max-players(numerical)
-                return false; //placeholder
+                return filterNum(game.getMaxPlayers(), op, value);
+            case MIN_PLAYERS:
+                return filterNum(game.getMinPlayers(), op, value);
+            case MIN_TIME:
+                return filterNum(game.getMinPlayTime(), op, value);
+            case MAX_TIME:
+                return filterNum(game.getMaxPlayTime(), op, value);
+            case YEAR:
+                return filterNum(game.getYearPublished(), op, value);
             default:
-                return false; //placeholder
+                return false;
         }
     }
 
@@ -20,21 +39,71 @@ public class Filters {
     public static boolean filterString(String gameData, Operations op, String value){
         switch(op){
             case EQUALS:
-                return gameData.equals(value); //checks if the game data equals the value passed in with filter
+                return gameData.equalsIgnoreCase(value); //checks if the game data equals the value passed in with filter
             case LESS_THAN:
-                //do something
+                return gameData.compareToIgnoreCase(value) < 0;
+            case LESS_THAN_EQUALS:
+                return gameData.compareToIgnoreCase(value) <= 0;
+            case GREATER_THAN:
+                return gameData.compareToIgnoreCase(value) > 0;
+            case GREATER_THAN_EQUALS:
+                return gameData.compareToIgnoreCase(value) >= 0;
+            case NOT_EQUALS:
+                return !gameData.equalsIgnoreCase(value);
+            case CONTAINS:
+                return gameData.toLowerCase().contains(value.toLowerCase());
             default:
                 return false;
-
         }
     }
 
-//    public static boolean filterNum(int gameData, Operations op, String value){
-//        int value = Integer.parseInt(value);
-//        switch(op){
-//            case EQUALS:
-//                //double something
-//            case CONTAINS:
-//        }
-//    }
+    public static boolean filterNum(int gameData, Operations op, String value){
+        int val;
+        try{
+            val = Integer.parseInt(value);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        switch(op){
+            case EQUALS:
+                return gameData == val;
+            case LESS_THAN:
+                return gameData < val;
+            case LESS_THAN_EQUALS:
+                return gameData <= val;
+            case GREATER_THAN:
+                return gameData > val;
+            case GREATER_THAN_EQUALS:
+                return gameData >= val;
+            case NOT_EQUALS:
+                return gameData != val;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean filterNum(double gameData, Operations op, String value){
+        double val;
+        try{
+            val = Double.parseDouble(value);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        switch(op){
+            case EQUALS:
+                return gameData == val;
+            case LESS_THAN:
+                return gameData < val;
+            case LESS_THAN_EQUALS:
+                return gameData <= val;
+            case GREATER_THAN:
+                return gameData > val;
+            case GREATER_THAN_EQUALS:
+                return gameData >= val;
+            case NOT_EQUALS:
+                return gameData != val;
+            default:
+                return false;
+        }
+    }
 }

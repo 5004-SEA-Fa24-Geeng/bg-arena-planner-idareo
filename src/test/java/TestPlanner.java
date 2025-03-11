@@ -2,13 +2,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import student.BoardGame;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
+
 import student.Planner;
 import student.IPlanner;
 import student.GameData;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static student.GameData.MIN_PLAYERS;
 
 
 /**
@@ -39,6 +44,15 @@ public class TestPlanner {
         List<BoardGame> filtered = planner.filter("name == Go").toList();
         assertEquals(1, filtered.size());
         assertEquals("Go", filtered.get(0).getName());
+    }
+
+    @Test
+    public void testFilterMinPlayers(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers>6").toList();
+        System.out.println(filtered);
+        assertTrue(filtered.contains("Monopoly"));
+        //assertTrue(filtered.contains("Tucano"));
     }
     
 

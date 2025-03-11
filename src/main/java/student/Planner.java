@@ -1,6 +1,7 @@
 package student;
 
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -18,9 +19,7 @@ public class Planner implements IPlanner {
 
     @Override
     public Stream<BoardGame> filter(String filter) {
-        //needs to implement multiple filters but think of case where filter only has one filter
-        // return Stream<BoardGame>
-        Stream<BoardGame>filteredStream = filterSingle(filter, games.stream());
+        Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
         return filteredStream;
     }
 
@@ -39,7 +38,7 @@ public class Planner implements IPlanner {
         }
         GameData column;
         try {
-            column = GameData.fromString(parts[0]);
+            column = GameData.fromString(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             return filteredGames;
         }
@@ -50,38 +49,118 @@ public class Planner implements IPlanner {
         }catch(IllegalArgumentException e){
             return filteredGames;
         }
-        System.out.print("Operator is:"+ operator);
-        System.out.print("GameData is:"+ column);
-        System.out.print("Value is:"+ value);
+//        System.out.print("Operator is:"+ operator);
+//        System.out.print("GameData is:"+ column);
+//        System.out.print("Value is:"+ value);
         //Filters.filter(boardGame, game Date, operator, String value)
         //Stream<BoardGame> filteredGames - you need to filter until you get "name == go" for example using a stream (don't have to use stream)
-        List<BoardGame> filteredGameList = filteredGames.filter(game ->
-                Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
+//        List<BoardGame> filteredGameList = filteredGames.filter(game ->
+//                Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
 
-        return filteredGameList.stream();
-        // more work here to filter the games
-        // we found creating a String filter and a Number filter to be useful.
-        // both of the them take in both the GameData enum, Operator Enum, and the value to parse and filter on.
-
+        return filteredGames.filter(game -> Filters.filter(game, column, operator, value));
 }
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+        Operations operator = Operations.getOperatorFromStr(filter);
+        if (operator == null) {
+            return  games.stream();
+        }
+
+        filter = filter.replaceAll(" ","");
+        String[] split = filter.split(operator.getOperator());
+
+        if(split.length != 2){
+            return games.stream();
+        }
+        GameData column;
+        try{
+            column = GameData.fromString(split[0]);
+        }catch(IllegalArgumentException e){
+            return games.stream();
+        }
+
+        String value;
+        try{
+            value = split[1].trim();
+        }catch(IllegalArgumentException e){
+            return games.stream();
+        }
+
+        Stream<BoardGame> filteredList = games.stream().filter(game -> Filters.filter(game, column, operator, value));
+
+        Comparator<BoardGame> compare = getComparator(sortOn);
+        if (compare != null) {
+            filteredList = filteredList.sorted(compare);
+        }
+        return filteredList;
     }
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+        Operations operator = Operations.getOperatorFromStr(filter);
+        if (operator == null) {
+            return  games.stream();
+        }
+
+        filter = filter.replaceAll(" ","");
+        String[] split = filter.split(operator.getOperator());
+
+        if(split.length != 2){
+            return games.stream();
+        }
+        GameData column;
+        try{
+            column = GameData.fromString(split[0]);
+        }catch(IllegalArgumentException e){
+            return games.stream();
+        }
+
+        String value;
+        try{
+            value = split[1].trim();
+        }catch(IllegalArgumentException e){
+            return games.stream();
+        }
+
+        Stream<BoardGame> filteredList = games.stream().filter(game -> Filters.filter(game, column, operator, value));
+
+        Comparator<BoardGame> compare = getComparator(sortOn);
+        if (compare != null) {
+            filteredList = ascending? filteredList.sorted(compare) : filteredList.sorted(compare.reversed());
+        }
+        return filteredList;
     }
 
+    private Comparator<BoardGame> getComparator(GameData sortOn) {
+        switch (sortOn) {
+            case NAME:
+                return new gameDataSorts.nameSort();
+            case ID:
+                return new gameDataSorts.idSort();
+            case RATING:
+                return new gameDataSorts.ratingSort();
+            case DIFFICULTY:
+                return new gameDataSorts.difficultySort();
+            case RANK:
+                return new gameDataSorts.rankSort();
+            case MAX_PLAYERS:
+                return new gameDataSorts.maxPlayersSort();
+            case MIN_PLAYERS:
+                return new gameDataSorts.minPlayersSort();
+            case MIN_TIME:
+                return new gameDataSorts.minPlayTimeSort();
+            case MAX_TIME:
+                return new gameDataSorts.maxPlayTimeSort();
+            case YEAR:
+                return new gameDataSorts.yearSort();
+            default:
+                return null;
+        }
+    }
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reset'");
+        games.stream();
     }
-
 
 }
