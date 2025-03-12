@@ -47,6 +47,13 @@ public class TestPlanner {
         assertEquals("Go", filtered.get(0).getName());
     }
 
+    @Test
+    public void testFilterNameContains(){
+        IPlanner  planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name ~= go f").toList();
+        System.out.println(filtered);
+        assertEquals(1, filtered.size());
+    }
 
     @Test
     public void testFilterMinPlayers(){

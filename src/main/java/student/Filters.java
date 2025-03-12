@@ -37,6 +37,10 @@ public class Filters {
 
     //method to handle filtering for gameData
     public static boolean filterString(String gameData, Operations op, String value){
+
+        gameData = gameData.replaceAll(" ", "").toLowerCase();  // Remove spaces and convert to lowercase
+        value = value.replaceAll(" ", "").toLowerCase();
+
         switch(op){
             case CONTAINS:
                 return gameData.toLowerCase().contains(value.toLowerCase());

@@ -33,7 +33,7 @@ public class Planner implements IPlanner {
             return filteredGames;
         }
         // remove spaces
-        filter = filter.replaceAll(" ", "");
+        filter = filter.replaceAll(" ", "").trim();
 
         String[] parts = filter.split(operator.getOperator());
         if (parts.length != 2) {
