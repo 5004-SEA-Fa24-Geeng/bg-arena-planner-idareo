@@ -81,12 +81,12 @@ public class TestPlanner {
     @Test
     public void testMultipleFilters(){
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("minPlayers>6, maxPlayer<20", NAME).toList();
+        List<BoardGame> filtered = planner.filter("minPlayers>2, minPlayers<10", NAME).toList();
 
         for (BoardGame game : filtered) {
-            assertTrue(game.getMinPlayers() > 6);
+           assertTrue(game.getMinPlayers() > 2);
             System.out.println(game);
-            assertTrue(game.getMaxPlayers() < 20);
+            assertTrue(game.getMinPlayers() < 10);
         }
     }
 

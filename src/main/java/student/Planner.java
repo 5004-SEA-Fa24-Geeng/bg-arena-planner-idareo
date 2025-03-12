@@ -49,9 +49,7 @@ public class Planner implements IPlanner {
         } catch (IllegalArgumentException e) {
             return filteredGames;
         }
-//        System.out.print("Operator is:"+ operator);
-//        System.out.print("GameData is:"+ column);
-//        System.out.print("Value is:"+ value);
+
         //Filters.filter(boardGame, game Date, operator, String value)
         //Stream<BoardGame> filteredGames - you need to filter until you get "name == go" for example using a stream (don't have to use stream)
         //List<BoardGame> filteredGameList = filteredGames.filter(game ->
@@ -77,10 +75,19 @@ public class Planner implements IPlanner {
         String[] multipleParts = filter.split(",");
         Stream<BoardGame> filteredGames = games.stream();
 
-        //get filtered list of objects and column comparators
-        for (String part : multipleParts) {
-            filteredGames = filterSingle(part.trim(), filteredGames);
+        //Stream<BoardGame>filteredGames;
+
+//        //get filtered list of objects and column comparators
+//        for (String part : multipleParts) {
+//            filteredGames = filterSingle(part.trim(), games.stream());
+//        }
+        int index = 0;
+        while (index < multipleParts.length) {
+            String part = multipleParts[index].trim();  // Get the current filter part
+            filteredGames = filterSingle(part, filteredGames);  // Apply the filter
+            index++;  // Move to the next part
         }
+
         Comparator<BoardGame> column = getComparator(sortOn);
         if (column != null) {
             filteredGames = filteredGames.sorted(column);
@@ -104,6 +111,7 @@ public class Planner implements IPlanner {
         for (String part : multipleParts) {
             filteredGames = filterSingle(part.trim(), filteredGames);
         }
+
         Comparator<BoardGame> column = getComparator(sortOn);
         if (column != null) {
             filteredGames = ascending
