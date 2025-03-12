@@ -39,7 +39,7 @@ public class Filters {
     public static boolean filterString(String gameData, Operations op, String value){
         switch(op){
             case CONTAINS:
-                return gameData.contains(value);
+                return gameData.toLowerCase().contains(value.toLowerCase());
             case EQUALS:
                 return gameData.equalsIgnoreCase(value); //checks if the game data equals the value passed in with filter
             case LESS_THAN:
