@@ -3,10 +3,18 @@ package student;
 import static student.Operations.CONTAINS;
 import static student.Operations.EQUALS;
 
-public class Filters {
+public final class Filters {
     private Filters() {
     }
 
+    /**
+     * @param game   stream of Boardgames.
+     * @param column column to sortOn.
+     * @param op     operation to perform for filtering.
+     * @param value  input to perform filtering on.
+     * @return true/false based on filterType(String or Num).
+     * for value matching boardGame column.
+     */
     public static boolean filter(BoardGame game, GameData column, Operations op, String value) {
         switch (column) {
             case NAME:
@@ -36,6 +44,12 @@ public class Filters {
         }
     }
 
+    /**
+     * @param gameData stream of Boardgames.
+     * @param op       operation to perform for filtering.
+     * @param value    input to perform filtering on.
+     * @return true or false value matching boardGame object.
+     */
     //method to handle filtering for gameData
     public static boolean filterString(String gameData, Operations op, String value) {
 
@@ -62,6 +76,12 @@ public class Filters {
         }
     }
 
+    /**
+     * @param gameData stream of Boardgames.
+     * @param op       operation to perform for filtering.
+     * @param value    input to perform filtering on.
+     * @return true or false value matching boardGame object.
+     */
     public static boolean filterNum(int gameData, Operations op, String value) {
         int val;
         try {
@@ -87,6 +107,12 @@ public class Filters {
         }
     }
 
+    /**
+     * @param gameData stream of Boardgames.
+     * @param op       operation to perform for filtering.
+     * @param value    input to perform filtering on.
+     * @return true or false value matching boardGame object.
+     */
     public static boolean filterNum(double gameData, Operations op, String value) {
         double val;
         try {
