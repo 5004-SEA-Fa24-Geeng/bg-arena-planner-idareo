@@ -21,6 +21,7 @@ public class Planner implements IPlanner {
     @Override
     public Stream<BoardGame> filter(String filter) {
         Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
+        filteredStream = filteredStream.sorted(Comparator.comparing(BoardGame::getName));
         return filteredStream;
     }
 

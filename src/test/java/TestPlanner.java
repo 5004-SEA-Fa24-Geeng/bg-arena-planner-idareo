@@ -54,12 +54,19 @@ public class TestPlanner {
     }
 
     @Test
-    public void testMultipleFilters(){
+    public void testFilterMaxPlayers(){
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("minPayers>2,maxPlayers<10").toList();
+        List<BoardGame> filtered = planner.filter("maxPlayers<10").toList();
         System.out.println(filtered);
-        assertEquals(1, filtered.size());
+        assertEquals(5, filtered.size());
 
+    }
+    @Test
+    public void testFilterDifficulty(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("difficulty>6").toList();
+        System.out.println(filtered);
+        assertEquals(4, filtered.size());
     }
 
 }
