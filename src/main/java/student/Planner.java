@@ -8,14 +8,24 @@ import java.util.stream.Stream;
 
 
 public class Planner implements IPlanner {
-
+    /**
+     * Set of BoardGame objects.
+     */
     Set<BoardGame> games;
 
+    /**
+     *
+     * @param games .
+     */
     public Planner(Set<BoardGame> games) {
         this.games = games;
     }
 
-    //sort
+    /**
+     *
+     * @param filter The filter to apply to the board games.
+     * @return stream of games.
+     */
     @Override
     public Stream<BoardGame> filter(String filter) {
 
@@ -67,7 +77,7 @@ public class Planner implements IPlanner {
             return filteredGames;
         }
         List<BoardGame> filteredGameList = filteredGames.filter(game ->
-                Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
+                Filters.filter(game, column, operator, value)).toList();
 
         return filteredGameList.stream();
     }
