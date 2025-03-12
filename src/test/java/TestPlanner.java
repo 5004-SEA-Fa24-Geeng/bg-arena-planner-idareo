@@ -50,10 +50,16 @@ public class TestPlanner {
     public void testFilterMinPlayers(){
         IPlanner planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("minPlayers>6").toList();
-        System.out.println(filtered);
-        assertTrue(filtered.contains("Monopoly"));
-        //assertTrue(filtered.contains("Tucano"));
+        assertEquals("Tucano", filtered.get(0).getName());
     }
-    
+
+    @Test
+    public void testMultipleFilters(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPayers>2,maxPlayers<10").toList();
+        System.out.println(filtered);
+        assertEquals(1, filtered.size());
+
+    }
 
 }

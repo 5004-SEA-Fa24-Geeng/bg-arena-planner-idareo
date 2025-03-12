@@ -17,7 +17,7 @@ public class Planner implements IPlanner {
     public Planner(Set<BoardGame> games) {
         this.games = games;
     }
-
+//sort
     @Override
     public Stream<BoardGame> filter(String filter) {
         Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
@@ -73,8 +73,8 @@ public class Planner implements IPlanner {
         Stream<BoardGame> filteredGames = games.stream();
 
         //get filtered list of objects and column comparators
-        for(String parts : multipleParts){
-            filteredGames = filterSingle(parts.trim(), filteredGames);
+        for(String part : multipleParts){
+            filteredGames = filterSingle(part.trim(), filteredGames);
             }
         Comparator<BoardGame> column = getComparator(sortOn);
         if(column != null){
@@ -96,12 +96,14 @@ public class Planner implements IPlanner {
         String[] multipleParts = filter.split(",");
         Stream<BoardGame> filteredGames = games.stream();
 
-        for(String parts : multipleParts){
-            filteredGames = filterSingle(parts.trim(), filteredGames);
+        for(String part : multipleParts){
+            filteredGames = filterSingle(part.trim(), filteredGames);
         }
         Comparator<BoardGame> column = getComparator(sortOn);
         if(column != null){
-            filteredGames = ascending? filteredGames : filteredGames.sorted(column);
+            filteredGames = ascending
+                    ? filteredGames.sorted(column)
+                    : filteredGames.sorted(column.reversed());
         }
         return filteredGames;
     }
@@ -118,6 +120,7 @@ public class Planner implements IPlanner {
         }
         switch (column) {
             case NAME:
+                //return Comparator.comparing(BoardGame::getName);
                 return new gameDataSorts.nameSort();
             case RATING:
                 return new gameDataSorts.ratingSort();
