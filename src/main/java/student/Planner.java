@@ -79,7 +79,7 @@ public class Planner implements IPlanner {
 
 //        //get filtered list of objects and column comparators
 //        for (String part : multipleParts) {
-//            filteredGames = filterSingle(part.trim(), games.stream());
+//            filteredGames = filterSingle(part.trim(), filteredGames);
 //        }
         int index = 0;
         while (index < multipleParts.length) {
