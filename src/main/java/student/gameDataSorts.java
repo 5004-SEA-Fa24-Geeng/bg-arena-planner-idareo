@@ -10,7 +10,7 @@ public class gameDataSorts {
     public static class nameSort implements Comparator<BoardGame> {
         @Override
         public int compare(BoardGame o1, BoardGame o2){
-            return o1.getName().compareToIgnoreCase(o2.getName());
+            return o1.getName().compareTo(o2.getName());
         }
     }
 

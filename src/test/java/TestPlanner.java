@@ -14,6 +14,7 @@ import student.GameData;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static student.GameData.MIN_PLAYERS;
+import static student.GameData.NAME;
 
 
 /**
@@ -67,6 +68,12 @@ public class TestPlanner {
         List<BoardGame> filtered = planner.filter("difficulty>6").toList();
         System.out.println(filtered);
         assertEquals(4, filtered.size());
+    }
+
+    @Test
+    public void testMultipleFilters(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers>6, maxPlayer<20", NAME).toList();
     }
 
 }
