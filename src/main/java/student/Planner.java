@@ -11,8 +11,11 @@ public class Planner implements IPlanner {
     /**
      * Set of BoardGame objects.
      */
-    Set<BoardGame> games;
+    private Set<BoardGame> games;
 
+    public Set<BoardGame> getGames() {
+        return games;
+    }
     /**
      *
      * @param games .
@@ -30,7 +33,7 @@ public class Planner implements IPlanner {
     public Stream<BoardGame> filter(String filter) {
 
         if (filter == null || filter.isEmpty()) {
-            return games.stream().sorted(getComparator(GameData.NAME));
+            return getGames().stream().sorted(getComparator(GameData.NAME));
         }
         if (!filter.contains(",")) {
             return filterSingle(filter, games.stream()).sorted(getComparator(GameData.NAME));
