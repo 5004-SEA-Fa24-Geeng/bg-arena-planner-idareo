@@ -89,7 +89,7 @@ public class TestPlanner {
     @Test
     public void testMultipleFiltersDiffColumn(){
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("minPlayers>2, maxPlayers<10", NAME).toList();
+        List<BoardGame> filtered = planner.filter("minPlayers>2, maxPlayers<10").toList();
 
         for (BoardGame game : filtered) {
             assertTrue(game.getMinPlayers() > 2);
@@ -100,9 +100,16 @@ public class TestPlanner {
     @Test
     public void testMultipleFiltersString(){
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("name~=go,minPlayers>2",NAME).toList();
+        List<BoardGame> filtered = planner.filter("name~=Go, name==GoRami").toList();
         System.out.println(filtered);
         assertEquals(1, filtered.size());
+    }
 
+    @Test
+    public void testMultipleFiltersStringNum(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers>2, name~=go").toList();
+        System.out.println(filtered);
+        assertEquals(1, filtered.size());
     }
 }

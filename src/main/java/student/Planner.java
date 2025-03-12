@@ -18,9 +18,30 @@ public class Planner implements IPlanner {
     //sort
     @Override
     public Stream<BoardGame> filter(String filter) {
-        Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
-        filteredStream = filteredStream.sorted(getComparator(GameData.NAME));
-        return filteredStream;
+
+        if (filter == null || filter.isEmpty()) {
+            return games.stream().sorted(getComparator(GameData.NAME));
+        }
+        if (!filter.contains(",")) {
+            return filterSingle(filter, games.stream()).sorted(getComparator(GameData.NAME));
+        }
+        //split up input if multiple operations
+        String[] multipleParts = filter.split(",");
+        Stream<BoardGame> filteredGames = games.stream();
+
+        int index = 0;
+        while (index < multipleParts.length) {
+            String part = multipleParts[index].trim();  // Get the current filter part
+            filteredGames = filterSingle(part, filteredGames);  // Apply the filter
+            index++;  // Move to the next part
+        }
+        filteredGames = filteredGames.sorted(getComparator(GameData.NAME));
+
+//        Stream<BoardGame> filteredGames = games.stream();
+//        Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
+//        filteredStream = filteredStream.sorted(getComparator(GameData.NAME));
+        //return filteredStream;
+        return filteredGames;
     }
 
     //helper method
@@ -53,6 +74,8 @@ public class Planner implements IPlanner {
         //Stream<BoardGame> filteredGames - you need to filter until you get "name == go" for example using a stream (don't have to use stream)
         List<BoardGame> filteredGameList = filteredGames.filter(game ->
                 Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
+
+
 
 //        return filteredGames.filter(game ->
 //                Filters.filter(game, column, operator, value));
