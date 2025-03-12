@@ -29,14 +29,16 @@ public class Planner implements IPlanner {
     private Stream<BoardGame> filterSingle(String filter, Stream<BoardGame> filteredGames) {
         Operations operator = Operations.getOperatorFromStr(filter);
         if (operator == null) {
-            return filteredGames;
+            throw new IllegalArgumentException("No Operator");
+//            return filteredGames;
         }
         // remove spaces
         filter = filter.replaceAll(" ", "");
 
         String[] parts = filter.split(operator.getOperator());
         if (parts.length != 2) {
-            return filteredGames;
+            throw new IllegalArgumentException("Not two");
+//            return filteredGames;
         }
         GameData column;
         try {
