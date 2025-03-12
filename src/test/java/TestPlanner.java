@@ -47,6 +47,7 @@ public class TestPlanner {
         assertEquals("Go", filtered.get(0).getName());
     }
 
+
     @Test
     public void testFilterMinPlayers(){
         IPlanner planner = new Planner(games);
