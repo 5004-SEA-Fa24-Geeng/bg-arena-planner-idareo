@@ -36,11 +36,11 @@ public class Planner implements IPlanner {
             return getGames().stream().sorted(getComparator(GameData.NAME));
         }
         if (!filter.contains(",")) {
-            return filterSingle(filter, games.stream()).sorted(getComparator(GameData.NAME));
+            return filterSingle(filter, getGames().stream()).sorted(getComparator(GameData.NAME));
         }
         //split up input if multiple operations
         String[] multipleParts = filter.split(",");
-        Stream<BoardGame> filteredGames = games.stream();
+        Stream<BoardGame> filteredGames = getGames().stream();
 
         int index = 0;
         while (index < multipleParts.length) {
@@ -89,15 +89,15 @@ public class Planner implements IPlanner {
     public Stream<BoardGame> filter(String filter, GameData sortOn) {
 
         if (filter == null || filter.isEmpty()) {
-            return games.stream().sorted(getComparator(sortOn));
+            return getGames().stream().sorted(getComparator(sortOn));
         }
 
         if (!filter.contains(",")) {
-            return filterSingle(filter, games.stream()).sorted(getComparator(sortOn));
+            return filterSingle(filter, getGames().stream()).sorted(getComparator(sortOn));
         }
         //split up input if multiple operations
         String[] multipleParts = filter.split(",");
-        Stream<BoardGame> filteredGames = games.stream();
+        Stream<BoardGame> filteredGames = getGames().stream();
 
         int index = 0;
         while (index < multipleParts.length) {
@@ -119,12 +119,12 @@ public class Planner implements IPlanner {
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
 
         if (filter == null || filter.isEmpty()) {
-            Stream<BoardGame> filteredGames = games.stream().sorted(getComparator(sortOn));
+            Stream<BoardGame> filteredGames = getGames().stream().sorted(getComparator(sortOn));
             return ascending ? filteredGames : filteredGames.sorted(getComparator(sortOn).reversed());
         }
 
         String[] multipleParts = filter.split(",");
-        Stream<BoardGame> filteredGames = games.stream();
+        Stream<BoardGame> filteredGames = getGames().stream();
 
         int index = 0;
         while (index < multipleParts.length) {
@@ -179,7 +179,7 @@ public class Planner implements IPlanner {
 
     @Override
     public void reset() {
-        games.stream();
+        getGames().stream();
     }
 
 }
