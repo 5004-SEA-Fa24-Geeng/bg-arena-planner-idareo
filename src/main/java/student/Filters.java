@@ -38,6 +38,8 @@ public class Filters {
     //method to handle filtering for gameData
     public static boolean filterString(String gameData, Operations op, String value){
         switch(op){
+            case CONTAINS:
+                return gameData.toLowerCase().contains(value.toLowerCase());
             case EQUALS:
                 return gameData.equalsIgnoreCase(value); //checks if the game data equals the value passed in with filter
             case LESS_THAN:
@@ -50,8 +52,6 @@ public class Filters {
                 return gameData.compareToIgnoreCase(value) >= 0;
             case NOT_EQUALS:
                 return !gameData.equalsIgnoreCase(value);
-            case CONTAINS:
-                return gameData.toLowerCase().contains(value.toLowerCase());
             default:
                 return false;
         }
