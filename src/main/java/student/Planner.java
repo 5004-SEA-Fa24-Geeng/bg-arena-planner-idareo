@@ -49,16 +49,14 @@ public class Planner implements IPlanner {
         } catch (IllegalArgumentException e) {
             return filteredGames;
         }
-
         //Filters.filter(boardGame, game Date, operator, String value)
         //Stream<BoardGame> filteredGames - you need to filter until you get "name == go" for example using a stream (don't have to use stream)
-        //List<BoardGame> filteredGameList = filteredGames.filter(game ->
-                //Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
+        List<BoardGame> filteredGameList = filteredGames.filter(game ->
+                Filters.filter(game, column, operator, value)).toList(); //filters using filter created in filters class, that is why filter is returning a boolean value
 
-
-        //return filteredGameList.stream();
-        return filteredGames.filter(game ->
-                Filters.filter(game, column, operator, value));
+//        return filteredGames.filter(game ->
+//                Filters.filter(game, column, operator, value));
+        return filteredGameList.stream();
     }
 
     @Override

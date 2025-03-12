@@ -51,7 +51,6 @@ public class TestPlanner {
     public void testFilterNameContains(){
         IPlanner  planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("name ~= go f").toList();
-        System.out.println(filtered);
         assertEquals(1, filtered.size());
     }
 
@@ -66,7 +65,6 @@ public class TestPlanner {
     public void testFilterMaxPlayers(){
         IPlanner planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("maxPlayers<10").toList();
-        System.out.println(filtered);
         assertEquals(5, filtered.size());
 
     }
@@ -74,7 +72,6 @@ public class TestPlanner {
     public void testFilterDifficulty(){
         IPlanner planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("difficulty>6").toList();
-        System.out.println(filtered);
         assertEquals(4, filtered.size());
     }
 
@@ -85,7 +82,6 @@ public class TestPlanner {
 
         for (BoardGame game : filtered) {
             assertTrue(game.getMinPlayers() > 2);
-            System.out.println(game);
             assertTrue(game.getMinPlayers() < 10);
         }
     }
@@ -97,9 +93,16 @@ public class TestPlanner {
 
         for (BoardGame game : filtered) {
             assertTrue(game.getMinPlayers() > 2);
-            System.out.println(game);
             assertTrue(game.getMaxPlayers() < 10);
         }
     }
 
+    @Test
+    public void testMultipleFiltersString(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name~=go,minPlayers>2",NAME).toList();
+        System.out.println(filtered);
+        assertEquals(1, filtered.size());
+
+    }
 }
