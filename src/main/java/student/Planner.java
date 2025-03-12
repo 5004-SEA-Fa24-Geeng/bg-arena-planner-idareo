@@ -13,6 +13,10 @@ public class Planner implements IPlanner {
      */
     private Set<BoardGame> games;
 
+    /**
+     *
+     * @return set of games.
+     */
     public Set<BoardGame> getGames() {
         return games;
     }
