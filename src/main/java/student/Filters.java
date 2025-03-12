@@ -46,7 +46,7 @@ public class Filters {
             case CONTAINS:
                 return gameData.toLowerCase().contains(value.toLowerCase());
             case EQUALS:
-                return gameData.equalsIgnoreCase(value); //checks if the game data equals the value passed in with filter
+                return gameData.equalsIgnoreCase(value);
             case LESS_THAN:
                 return gameData.compareToIgnoreCase(value) < 0;
             case LESS_THAN_EQUALS:

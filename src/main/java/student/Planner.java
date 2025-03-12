@@ -4,11 +4,7 @@ package student;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.util.Arrays.stream;
-import static student.GameData.NAME;
 
 
 public class Planner implements IPlanner {
@@ -128,23 +124,23 @@ public class Planner implements IPlanner {
         switch (column) {
             case NAME:
                 //return Comparator.comparing(BoardGame::getName);
-                return new gameDataSorts.nameSort();
+                return new GameDataSorts.NameSort();
             case RATING:
-                return new gameDataSorts.ratingSort();
+                return new GameDataSorts.RatingSort();
             case DIFFICULTY:
-                return new gameDataSorts.difficultySort();
+                return new GameDataSorts.DifficultySort();
             case RANK:
-                return new gameDataSorts.rankSort();
+                return new GameDataSorts.RankSort();
             case MIN_PLAYERS:
-                return new gameDataSorts.minPlayersSort();
+                return new GameDataSorts.MinPlayersSort();
             case MAX_PLAYERS:
-                return new gameDataSorts.maxPlayersSort();
+                return new GameDataSorts.MaxPlayersSort();
             case MIN_TIME:
-                return new gameDataSorts.minPlayTimeSort();
+                return new GameDataSorts.MinPlayTimeSort();
             case MAX_TIME:
-                return new gameDataSorts.maxPlayTimeSort();
+                return new GameDataSorts.MaxPlayTimeSort();
             case YEAR:
-                return new gameDataSorts.yearSort();
+                return new GameDataSorts.YearSort();
             default:
                 return null;
         }

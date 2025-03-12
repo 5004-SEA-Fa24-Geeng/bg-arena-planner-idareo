@@ -5,9 +5,9 @@ import java.util.Comparator;
 /**
  * class containing classes for GamData column sorts.
  */
-public class gameDataSorts {
+public class GameDataSorts {
 
-    public static class nameSort implements Comparator<BoardGame> {
+    public static class NameSort implements Comparator<BoardGame> {
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             int compare = o1.getName().compareToIgnoreCase(o2.getName());
@@ -19,56 +19,56 @@ public class gameDataSorts {
     }
 
 
-    public static class ratingSort implements Comparator<BoardGame> {
+    public static class RatingSort implements Comparator<BoardGame> {
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Double.compare(o1.getRating(), o2.getRating());
         }
     }
 
-    public static class difficultySort implements Comparator<BoardGame> {
+    public static class DifficultySort implements Comparator<BoardGame> {
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Double.compare(o1.getDifficulty(), o2.getDifficulty());
         }
     }
 
-    public static class rankSort implements Comparator<BoardGame>{
+    public static class RankSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Double.compare(o1.getRank(), o2.getRank());
         }
     }
 
-    public static class minPlayersSort implements Comparator<BoardGame>{
+    public static class MinPlayersSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Integer.compare(o1.getMinPlayers(), o2.getMinPlayers());
         }
     }
 
-    public static class maxPlayersSort implements Comparator<BoardGame>{
+    public static class MaxPlayersSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Integer.compare(o1.getMaxPlayers(), o2.getMaxPlayers());
         }
     }
 
-    public static class minPlayTimeSort implements Comparator<BoardGame>{
+    public static class MinPlayTimeSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Integer.compare(o1.getMinPlayTime(), o2.getMinPlayTime());
         }
     }
 
-    public static class maxPlayTimeSort implements Comparator<BoardGame>{
+    public static class MaxPlayTimeSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Integer.compare(o1.getMaxPlayTime(), o2.getMaxPlayTime());
         }
     }
 
-    public static class yearSort implements Comparator<BoardGame>{
+    public static class YearSort implements Comparator<BoardGame>{
         @Override
         public int compare(BoardGame o1, BoardGame o2){
             return Integer.compare(o1.getYearPublished(), o2.getYearPublished());
