@@ -108,8 +108,14 @@ public class Planner implements IPlanner {
         String[] multipleParts = filter.split(",");
         Stream<BoardGame> filteredGames = games.stream();
 
-        for (String part : multipleParts) {
-            filteredGames = filterSingle(part.trim(), filteredGames);
+//        for (String part : multipleParts) {
+//            filteredGames = filterSingle(part.trim(), filteredGames);
+//        }
+        int index = 0;
+        while (index < multipleParts.length) {
+            String part = multipleParts[index].trim();  // Get the current filter part
+            filteredGames = filterSingle(part, filteredGames);  // Apply the filter
+            index++;  // Move to the next part
         }
 
         Comparator<BoardGame> column = getComparator(sortOn);

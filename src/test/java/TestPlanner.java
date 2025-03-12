@@ -79,14 +79,26 @@ public class TestPlanner {
     }
 
     @Test
-    public void testMultipleFilters(){
+    public void testMultipleFiltersSameColumn(){
         IPlanner planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("minPlayers>2, minPlayers<10", NAME).toList();
 
         for (BoardGame game : filtered) {
-           assertTrue(game.getMinPlayers() > 2);
+            assertTrue(game.getMinPlayers() > 2);
             System.out.println(game);
             assertTrue(game.getMinPlayers() < 10);
+        }
+    }
+
+    @Test
+    public void testMultipleFiltersDiffColumn(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers>2, maxPlayers<10", NAME).toList();
+
+        for (BoardGame game : filtered) {
+            assertTrue(game.getMinPlayers() > 2);
+            System.out.println(game);
+            assertTrue(game.getMaxPlayers() < 10);
         }
     }
 
