@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,6 +12,9 @@ import java.util.stream.Stream;
 
 public class GameList implements IGameList {
 
+    /**
+     * Set of gameNames.
+     */
     private Set<String> gameNames;
 
     /**

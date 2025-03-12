@@ -18,7 +18,8 @@ public class Planner implements IPlanner {
     public Planner(Set<BoardGame> games) {
         this.games = games;
     }
-//sort
+
+    //sort
     @Override
     public Stream<BoardGame> filter(String filter) {
         Stream<BoardGame> filteredStream = filterSingle(filter, games.stream());
@@ -47,9 +48,9 @@ public class Planner implements IPlanner {
         }
 
         String value;
-        try{
+        try {
             value = parts[1].trim();
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return filteredGames;
         }
 //        System.out.print("Operator is:"+ operator);
@@ -62,16 +63,16 @@ public class Planner implements IPlanner {
 
 
         return filteredGameList.stream();
-}
+    }
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn) {
 
-        if(filter == null || filter.isEmpty()) {
+        if (filter == null || filter.isEmpty()) {
             return games.stream().sorted(getComparator(sortOn));
         }
 
-        if(!filter.contains(",")) {
+        if (!filter.contains(",")) {
             return filterSingle(filter, games.stream()).sorted(getComparator(sortOn));
         }
         //split up input if multiple operations
@@ -79,34 +80,34 @@ public class Planner implements IPlanner {
         Stream<BoardGame> filteredGames = games.stream();
 
         //get filtered list of objects and column comparators
-        for(String part : multipleParts){
+        for (String part : multipleParts) {
             filteredGames = filterSingle(part.trim(), filteredGames);
-            }
+        }
         Comparator<BoardGame> column = getComparator(sortOn);
-        if(column != null){
+        if (column != null) {
             filteredGames = filteredGames.sorted(column);
         }
 
         return filteredGames;
-        }
+    }
 
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
 
-        if(filter == null || filter.isEmpty()){
+        if (filter == null || filter.isEmpty()) {
             Stream<BoardGame> filteredGames = games.stream().sorted(getComparator(sortOn));
-            return ascending? filteredGames : filteredGames.sorted(getComparator(sortOn).reversed());
+            return ascending ? filteredGames : filteredGames.sorted(getComparator(sortOn).reversed());
         }
 
         String[] multipleParts = filter.split(",");
         Stream<BoardGame> filteredGames = games.stream();
 
-        for(String part : multipleParts){
+        for (String part : multipleParts) {
             filteredGames = filterSingle(part.trim(), filteredGames);
         }
         Comparator<BoardGame> column = getComparator(sortOn);
-        if(column != null){
+        if (column != null) {
             filteredGames = ascending
                     ? filteredGames.sorted(column)
                     : filteredGames.sorted(column.reversed());
@@ -119,9 +120,9 @@ public class Planner implements IPlanner {
             return null;
         }
         GameData column;
-        try{
+        try {
             column = GameData.fromString(sortOn.toString());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid column");
         }
         switch (column) {
@@ -148,6 +149,7 @@ public class Planner implements IPlanner {
                 return null;
         }
     }
+
     @Override
     public void reset() {
         games.stream();

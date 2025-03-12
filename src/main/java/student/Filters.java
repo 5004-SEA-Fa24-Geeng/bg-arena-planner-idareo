@@ -4,10 +4,11 @@ import static student.Operations.CONTAINS;
 import static student.Operations.EQUALS;
 
 public class Filters {
-    private Filters() {}
+    private Filters() {
+    }
 
-    public static boolean filter(BoardGame game, GameData column, Operations op, String value){
-        switch(column){
+    public static boolean filter(BoardGame game, GameData column, Operations op, String value) {
+        switch (column) {
             case NAME:
                 //filter the name(string)
                 return filterString(game.getName(), op, value);
@@ -36,12 +37,12 @@ public class Filters {
     }
 
     //method to handle filtering for gameData
-    public static boolean filterString(String gameData, Operations op, String value){
+    public static boolean filterString(String gameData, Operations op, String value) {
 
         gameData = gameData.replaceAll(" ", "").toLowerCase();  // Remove spaces and convert to lowercase
         value = value.replaceAll(" ", "").toLowerCase();
 
-        switch(op){
+        switch (op) {
             case CONTAINS:
                 return gameData.toLowerCase().contains(value.toLowerCase());
             case EQUALS:
@@ -61,14 +62,14 @@ public class Filters {
         }
     }
 
-    public static boolean filterNum(int gameData, Operations op, String value){
+    public static boolean filterNum(int gameData, Operations op, String value) {
         int val;
-        try{
+        try {
             val = Integer.parseInt(value);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
-        switch(op){
+        switch (op) {
             case EQUALS:
                 return gameData == val;
             case LESS_THAN:
@@ -86,14 +87,14 @@ public class Filters {
         }
     }
 
-    public static boolean filterNum(double gameData, Operations op, String value){
+    public static boolean filterNum(double gameData, Operations op, String value) {
         double val;
-        try{
+        try {
             val = Double.parseDouble(value);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
-        switch(op){
+        switch (op) {
             case EQUALS:
                 return gameData == val;
             case LESS_THAN:
