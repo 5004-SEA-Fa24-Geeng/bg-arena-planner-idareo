@@ -4,6 +4,7 @@ package student;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
@@ -71,7 +72,7 @@ public class Planner implements IPlanner {
         }
 
         if(!filter.contains(",")) {
-            return games.stream().filter(game -> game.getName().equalsIgnoreCase(filter.trim())).sorted(getComparator(sortOn));
+            return filterSingle(filter, games.stream()).sorted(getComparator(sortOn));
         }
         //split up input if multiple operations
         String[] multipleParts = filter.split(",");
