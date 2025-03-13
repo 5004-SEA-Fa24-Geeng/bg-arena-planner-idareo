@@ -108,8 +108,20 @@ public class TestPlanner {
     @Test
     public void testMultipleFiltersStringNum(){
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("minPlayers>2, name~=go").toList();
+        List<BoardGame> filtered = planner.filter("minPlayers>2, name~=go",NAME).toList();
         System.out.println(filtered);
         assertEquals(1, filtered.size());
+    }
+
+    @Test
+    public void testMultipleFiltersStringBoolean() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers==2, name~=go", NAME, false).toList();
+        System.out.println(filtered);
+        if (filtered.size() > 1) {
+            for (int i = 0; i < filtered.size() - 1; i++) {
+                assertTrue(filtered.get(i).getName().compareToIgnoreCase(filtered.get(i + 1).getName()) >= 0);
+            }
+        }
     }
 }
